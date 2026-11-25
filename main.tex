@@ -1,0 +1,110 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Welcome to Overleaf --- just edit your LaTeX on the left,
+% and we'll compile it for you on the right. If you open the
+% 'Share' menu, you can invite other users to edit at the same
+% time. See www.overleaf.com/learn for more info. Enjoy!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\else
+  \usepackage[no-math]{fontspec}
+\fi
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{quantikz}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\setstretch{1.25}
+
+\usetikzlibrary{arrows,arrows.meta,automata,positioning,patterns,calc,shapes,decorations.pathreplacing}
+
+
+\pagestyle{fancy}
+
+\fancyhf{}
+
+\fancyhead[L]{Evolución de sistemas abiertos}
+\fancyhead[R]{Práctica 4}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancyfoot[C]{\thepage}
+
+\title{\textbf{Seminario de Mecánica Cuántica}\\[0.3cm] \large Práctica 4}
+\date{}
+\author{Milton Plasencia}
+
+\makeatletter
+\AtBeginDocument{%
+  \theoremstyle{definition}\@ifundefined{exercise}{\newtheorem{exercise}{Ejercicio}}{}%
+}
+\makeatother
+\renewcommand{\proofname}{Demostración}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+% --- Página 1 ---
+
+\begin{exercise}
+Mostremos el caso más general, el caso puro se verá como un caso particular.
+
+Si $\rho_{AB}$ es un estado producto $\rho_{AB}=\rho_A \otimes \rho_B$ con $\rho_B$ en general estado mezcla, entonces
+
+\begin{equation*}
+     \rho_B=\sum_i p_i |\psi^B_i\rangle\langle\psi^B_i|.
+\end{equation*}
+
+En general lo que podemos hacer es escribir la evolución de $\rho_{A}$ como la traza parcial de B respecto la evolución unitaria del sistema completo, es decir,
+
+\begin{align*}
+    \rho_A' &= \text{Tr}_B\left[U_{AB}(\rho_A \otimes \rho_B)U_{AB}^{\dagger}\right] = \sum_j \langle j_B| \sum_i p_i \left[U_{AB}(\rho_A \otimes |\psi^B_i\rangle\langle\psi^B_i|)U_{AB}^{\dagger}\right]|j_B\rangle \\
+    &= \sum_{i,j} \sqrt{p_i} \langle j_B|U_{AB}|\psi^B_i\rangle \rho_A \sqrt{p_i}  \langle\psi^B_i|U_{AB}^{\dagger}|j_B\rangle \\
+\end{align*}
+
+Definimos los operadores de Kraus como $E_{ij} = \sqrt{p_i} \langle j_B|U_{AB}|\psi^B_i\rangle$. Nótese que efectivamente son de Krauss pues
+
+\begin{align*}
+    \sum_{i,j} E_{ij}^{\dagger}E_{ij} &= \sum_{i,j} p_i \langle\psi^B_i|U_{AB}^{\dagger}|j_B\rangle \langle j_B|U_{AB}|\psi^B_i\rangle \\
+    &= \sum_i p_i \langle\psi^B_i|U_{AB}^{\dagger}U_{AB}|\psi^B_i\rangle = \sum_i p_i \langle\psi^B_i|\psi^B_i\rangle = \sum_i p_i = \mathbb{I}_A
+\end{align*}
+
+\end{exercise}
+
+
+
+\begin{exercise}
+        Para el caso de la evolución que provoca un CNOT, tenemos que para el estado dado $\rho_{AB}=\rho_A \otimes|\psi^B\rangle\langle\psi^B|$. Así, los operadores de Krauss son fácilmente computables en la base $|\pm\rangle$ 
+En efecto, tenemos que
+
+\begin{align*}
+     E_{+} &= \langle +|U_{AB}|+\rangle
+            = \langle +|CNOT|+\rangle
+            = |0\rangle\langle 0| + |1\rangle\langle 1|
+            = \mathbb{I}_A, \\
+     E_{-} &= \langle -|U_{AB}|+\rangle
+            = \langle -|CNOT|+\rangle
+            = |0\rangle\langle 1| + |1\rangle\langle 0|
+            = X_A.
+\end{align*}
+
+\end{exercise}
+
+
+
+
+
+
+\end{document}

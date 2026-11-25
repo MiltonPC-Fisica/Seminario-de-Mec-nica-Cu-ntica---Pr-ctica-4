@@ -78,7 +78,7 @@ Definimos los operadores de Kraus como $E_{ij} = \sqrt{p_i} \langle j_B|U_{AB}|\
 
 \begin{align*}
     \sum_{i,j} E_{ij}^{\dagger}E_{ij} &= \sum_{i,j} p_i \langle\psi^B_i|U_{AB}^{\dagger}|j_B\rangle \langle j_B|U_{AB}|\psi^B_i\rangle \\
-    &= \sum_i p_i \langle\psi^B_i|U_{AB}^{\dagger}U_{AB}|\psi^B_i\rangle = \sum_i p_i \langle\psi^B_i|\psi^B_i\rangle = \sum_i p_i = \mathbb{I}_A
+    &= \sum_i p_i \langle\psi^B_i|U_{AB}^{\dagger}U_{AB}|\psi^B_i\rangle = \sum_i p_i \langle\psi^B_i|\mathbb{I_A}\otimes \mathbb{I_B}|\psi^B_i\rangle = \mathbb{I}_A \sum_i p_i = \mathbb{I}_A
 \end{align*}
 
 \end{exercise}
@@ -86,19 +86,13 @@ Definimos los operadores de Kraus como $E_{ij} = \sqrt{p_i} \langle j_B|U_{AB}|\
 
 
 \begin{exercise}
-        Para el caso de la evolución que provoca un CNOT, tenemos que para el estado dado $\rho_{AB}=\rho_A \otimes|\psi^B\rangle\langle\psi^B|$. Así, los operadores de Krauss son fácilmente computables en la base $|\pm\rangle$ 
-En efecto, tenemos que
+        Para el caso de la evolución dada por un CNOT, tenemos que para el estado dado $\rho_{AB}=\rho_A \otimes|\psi^B\rangle\langle\psi^B|$, los operadores de Krauss son fácilmente computables en la base $|\pm\rangle$ de $X$, donde $X|\pm\rangle=\pm |\pm \rangle$.
+En efecto, tenemos que como $U_{AB}=|0\rangle\langle 0|\otimes \mathbb{I}_B + |1\rangle\langle 1|\otimes X$ luego, si admitimos una descomposición para $|\psi_B\rangle = \alpha |+\rangle + \beta |-\rangle$, entonces
 
-\begin{align*}
-     E_{+} &= \langle +|U_{AB}|+\rangle
-            = \langle +|CNOT|+\rangle
-            = |0\rangle\langle 0| + |1\rangle\langle 1|
-            = \mathbb{I}_A, \\
-     E_{-} &= \langle -|U_{AB}|+\rangle
-            = \langle -|CNOT|+\rangle
-            = |0\rangle\langle 1| + |1\rangle\langle 0|
-            = X_A.
-\end{align*}
+$$E_+= \langle+_B|U_{AB}|\psi_B\rangle = |0\rangle\langle 0|\otimes \langle+|\mathbb{I}_B|\psi_B\rangle + |1\rangle\langle 1| \otimes \langle-|X|\psi_B\rangle = \alpha \mathbb{I}_A $$
+
+$$E_-= \langle-_B|U_{AB}|\psi_B\rangle = |0\rangle\langle 0|\otimes \langle-|\mathbb{I}_B|\psi_B\rangle + |1\rangle\langle 1| \otimes \langle-|X|\psi_B\rangle = \beta Z $$
+
 
 \end{exercise}
 

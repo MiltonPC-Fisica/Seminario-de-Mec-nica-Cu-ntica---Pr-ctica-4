@@ -86,15 +86,163 @@ Definimos los operadores de Kraus como $E_{ij} = \sqrt{p_i} \langle j_B|U_{AB}|\
 
 
 \begin{exercise}
-        Para el caso de la evolución dada por un CNOT, tenemos que para el estado dado $\rho_{AB}=\rho_A \otimes|\psi^B\rangle\langle\psi^B|$, los operadores de Krauss son fácilmente computables en la base $|\pm\rangle$ de $X$, donde $X|\pm\rangle=\pm |\pm \rangle$.
+        \textbf{a)} Para el caso de la evolución dada por un CNOT, tenemos que para el estado dado $\rho_{AB}=\rho_A \otimes|\psi^B\rangle\langle\psi^B|$, los operadores de Krauss son fácilmente computables en la base $|\pm\rangle$ de $X$, donde $X|\pm\rangle=\pm |\pm \rangle$.
 En efecto, tenemos que como $U_{AB}=|0\rangle\langle 0|\otimes \mathbb{I}_B + |1\rangle\langle 1|\otimes X$ luego, si admitimos una descomposición para $|\psi_B\rangle = \alpha |+\rangle + \beta |-\rangle$, entonces
 
 $$E_+= \langle+_B|U_{AB}|\psi_B\rangle = |0\rangle\langle 0|\otimes \langle+|\mathbb{I}_B|\psi_B\rangle + |1\rangle\langle 1| \otimes \langle-|X|\psi_B\rangle = \alpha \mathbb{I}_A $$
 
-$$E_-= \langle-_B|U_{AB}|\psi_B\rangle = |0\rangle\langle 0|\otimes \langle-|\mathbb{I}_B|\psi_B\rangle + |1\rangle\langle 1| \otimes \langle-|X|\psi_B\rangle = \beta Z $$
+$$E_-= \langle-_B|U_{AB}|\psi_B\rangle = |0\rangle\langle 0|\otimes \langle-|\mathbb{I}_B|\psi_B\rangle + |1\rangle\langle 1| \otimes \langle-|X|\psi_B\rangle = \beta Z. $$
+
+De este modo, la evolución del subsistema $\rho_A$ está dada por
+
+$$\rho_A'=\sum_\alpha E_\alpha\rho_AE^{\dagger}= |\alpha|^2 \rho_A + |\beta|^2 Z\rho_AZ. $$
+
+Y como son estados normalizados podemos poner $p=|\beta|^2$ y por tanto $|\alpha|^2=1-p$, obteniendo finalmente
+
+$$\rho_A'=(1-p)\rho_A + p Z\rho_AZ. $$
+
+Analicemos y discutamos los siguientes casos:
+
+\textbf{Caso $p=1/2$:}
+
+Consideremos 
+
+\begin{equation}\label{rhoA}
+  \rho_A = \begin{pmatrix}
+    \rho_{00} & \rho_{01} \\
+    \rho_{10} & \rho_{11}
+\end{pmatrix}
+\end{equation}
+
+y hagamoslo evolucionar por el canal de Krauss, obteniendo
+
+\begin{align*}
+    \rho_A' &= \frac{1}{2}\begin{pmatrix}
+        \rho_{00} & \rho_{01} \\
+        \rho_{10} & \rho_{11}
+    \end{pmatrix} + \frac{1}{2}\begin{pmatrix}
+        \rho_{00} & -\rho_{01} \\
+        -\rho_{10} & \rho_{11}
+    \end{pmatrix} = \begin{pmatrix}
+        \rho_{00} & 0 \\
+        0 & \rho_{11}
+    \end{pmatrix}.
+\end{align*}
+
+Lo que vemos es que la evolución no unitaria destruye por completo las coherencias cuánticas. Por eso esta evolución se llama \textit{decoherencia completa}.
+
+En términos de la entropía, si suponemos que $\rho_A$ es estado puro, la variación de entropía entre $\rho_A$ y $\rho_A'$ es 
+
+$$\Delta S = S(\rho_A') - S(\rho_A) = -\rho_{00}\log\rho_{00} - \rho_{11}\log\rho_{11} + \text{Tr}(\rho_A\log\rho_A)= .$$
+
+\textbf{Caso $p=0$:}
+
+Considerando nuevamente el estado \ref{rhoA}, en este caso la evolución de Krauss es trivial, pues
+
+$$\rho_A' = \rho_A.$$
+
+En este caso, el estado original queda inalterado, y por tanto no hay decoherencia. Este es el caso de \textit{ausencia de decoherencia}.
+
+Como es evidente, la variación de entropía entre $\rho_A$ y $\rho_A'$ es nula. Al no haber decoherencia, no hay pérdida de información, y por tanto la entropía no varía.
+
+
 
 
 \end{exercise}
+
+
+
+\textbf{b)} Analicemos la evolución en el caso de $\rho_B$ no estado puro sino mezcla. En este caso, podemos expandir $\rho_B$ como
+
+$$\rho_B =  \rho_{00} |0\rangle\langle 0| + \rho_{01} |0\rangle\langle 1| + \rho_{10} |1\rangle\langle 0| + \rho_{11} |1\rangle\langle 1|. $$
+
+La evolución de $\rho_A$ está dada por
+
+$$    \rho_A' = \text{Tr}_B\left[U_{AB}(\rho_A \otimes \rho_B)U_{AB}^{\dagger}\right] $$
+
+Desarrollando por partes, obtenemos
+
+\begin{align*}
+   U_{AB}(\rho_A \otimes \rho_B)U_{AB}^{\dagger} &= \left(|0\rangle\langle0|\rho_A \otimes \rho_B + |1\rangle\langle1|\rho_A \otimes X\rho_B \right) (|0\rangle\langle0| \otimes \mathbb{I}_B + |1\rangle\langle1| \otimes X) \\
+  &= |0\rangle\langle0|\rho_A|0\rangle\langle0| \otimes \rho_B  + |0\rangle\langle0|\rho_A|1\rangle\langle1|\otimes \rho_BX +  |1\rangle\langle1|\rho_A|0\rangle\langle0| \otimes X\rho_B + \\
+  & \quad |1\rangle\langle1|\rho_A|1\rangle\langle1| \otimes X\rho_BX 
+\end{align*}
+
+y notando $\text{Tr}(\rho O)=\langle O \rangle$ y por propiedad cíclicla dentro de la traza $\text{Tr}(X\rho_A X)=\text{Tr}(\underbrace{XX}_{\mathbb{I}}\rho_A)=1$ tenemos que
+
+\begin{align*}
+  \rho_A' &=  \text{Tr}_B(U_{AB}(\rho_A \otimes \rho_B)U_{AB}^{\dagger}) \\
+   &= \langle0|\rho_A|0\rangle |0\rangle\langle0|  + \langle0|\rho_A|1\rangle \langle X \rangle_B |0\rangle\langle1| + \langle1|\rho_A|0\rangle \langle X \rangle_B |1\rangle\langle0| + \langle1|\rho_A|1\rangle \langle X \rangle_B |1\rangle\langle1| \\
+   &= \begin{pmatrix}
+    \rho^{A}_{00} & \langle X \rangle_B \rho^{A}_{01} \\
+    \langle X \rangle_B \rho^{A}_{10} & \rho^{A}_{11}
+    \end{pmatrix}
+\end{align*}
+
+Si ahora ponemos $\rho_B = \frac{1}{d_B}\mathbb{I}_B$ veremos que recuperamos el caso de decoherencia completa, pues $\langle X \rangle_B = 0$ y por tanto 
+
+$$\rho_A' = \begin{pmatrix}.
+    \rho^{A}_{00} & 0 \\
+    0 & \rho^{A}_{11}
+    \end{pmatrix}.$$
+
+
+
+
+
+
+\begin{exercise}
+    \textbf{a)} Dados los operadores de Krauss $E_1 = |0\rangle\langle 0| + \sqrt{1-p}|1\rangle\langle 1|$ y $E_2 = \sqrt{p}|0\rangle\langle 1|$, podemos ver que efectivamente cumplen la condición de completitud, pues
+
+$$\sum_{i=1}^2 E_i^\dagger E_i = |0\rangle\langle 0| + (1-p) |1\rangle\langle 1| + p|1\rangle\underbrace{\langle0|0\rangle}_{1}\langle1|= |0\rangle\langle0| + |1\rangle\langle1| = \mathbb{I}_A$$
+
+Mientras que haciendo los productos en el orden inverso obtenemos
+
+$$\sum_{i=1}^2 E_i E_i^\dagger = |0\rangle\langle 0| + (1-p) |1\rangle\langle 1| + p|0\rangle\underbrace{\langle1|1\rangle}_{1}\langle0|= (1-p)|1\rangle\langle1| + (1+p)|0\rangle\langle0| \neq \mathbb{I}_A.$$  
+
+siempre que $p\neq 0$. Pues los operadores de Krauss no son necesariamente unitarios, y por tanto no necesariamente cumplen la condición de completitud en el orden inverso.
+
+\textbf{b)} La evolución de $\rho_A$ está dada por $\rho_A' = \sum_{i=1}^2 E_i \rho_A E_i^\dagger$. Si tomamos $\rho_A$ como en el ejercicio anterior, entonces realizando la operación con el software de \textit{Mathematica}
+
+\begin{align*}
+    \rho_A' &= E_1 \rho_A E_1^\dagger + E_2 \rho_A E_2^\dagger \\
+    &= \begin{pmatrix}
+        1 & 0 \\
+        0 & \sqrt{1-p}
+    \end{pmatrix} \begin{pmatrix}
+        \rho_{00} & \rho_{01} \\
+        \rho_{10} & \rho_{11}
+    \end{pmatrix} \begin{pmatrix}
+        1 & 0 \\
+        0 & \sqrt{1-p}
+    \end{pmatrix} + 
+    \begin{pmatrix}
+        0 & \sqrt{p} \\
+        0 & 0
+    \end{pmatrix} 
+    \begin{pmatrix}
+        \rho_{00} & \rho_{01} \\
+        \rho_{10} & \rho_{11}
+    \end{pmatrix} 
+    \begin{pmatrix}
+        0 & 0\\
+        \sqrt{p} & 0
+    \end{pmatrix} \\[0.3cm]
+    &= \begin{pmatrix}
+        \rho_{00}+\rho_{11}p & \sqrt{1-p}\rho_{01} \\
+        \sqrt{1-p}\rho_{10} & (1-p)\rho_{11}
+    \end{pmatrix} 
+\end{align*}
+
+
+\end{exercise}
+
+
+
+
+
+
+
 
 
 
